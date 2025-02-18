@@ -79,16 +79,18 @@ const GuideTemplate = ({ meta, content, children, editLink, mdxOptions }: GuideT
           id="sb-docs-guide-main-article"
           className="prose max-w-none"
         >
-          <div className="flex flex-col gap-2 border border-t-0 rounded-b-lg bg-surface-100">
-            <div className="flex flex-col gap-2 p-4 md:p-6 md:pt-8">
+          <div className="relative overflow-hidden flex flex-col gap-2 border border-t-0 rounded-b-lg bg-surface-100/70">
+            {/* <div className="absolute inset-0 w-full h-full bg-[radial-gradient(100%_150%_at_50%_0,hsl(var(--background-alternative-default))_0%,transparent_100%)]" /> */}
+            <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-transparent to-background-alternative opacity-50" />
+            <div className="relative flex flex-col gap-2 p-4 md:p-6 md:pt-8 max-w-lg">
               <Breadcrumbs className="mb-2" />
               <h1 className="mb-0 [&>p]:m-0">
                 <ReactMarkdown>{meta?.title || 'Supabase Docs'}</ReactMarkdown>
               </h1>
               {meta?.subtitle && (
-                <h2 className="mt-3 text-xl text-foreground-light">
-                  <ReactMarkdown>{meta.subtitle}</ReactMarkdown>
-                </h2>
+                <ReactMarkdown className="text-xl text-foreground-light [&>p]:m-0 [&>p]:mt-3">
+                  {meta.subtitle}
+                </ReactMarkdown>
               )}
             </div>
           </div>

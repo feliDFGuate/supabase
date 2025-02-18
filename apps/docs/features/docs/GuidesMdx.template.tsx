@@ -63,8 +63,6 @@ type GuideTemplateProps =
 const GuideTemplate = ({ meta, content, children, editLink, mdxOptions }: GuideTemplateProps) => {
   const hideToc = meta?.hideToc || meta?.hide_table_of_contents
 
-  console.log('meta', meta)
-
   return (
     <div className={'grid grid-cols-12 relative gap-4'}>
       <div
@@ -86,9 +84,9 @@ const GuideTemplate = ({ meta, content, children, editLink, mdxOptions }: GuideT
             <ReactMarkdown>{meta?.title || 'Supabase Docs'}</ReactMarkdown>
           </h1>
           {meta?.subtitle && (
-            <h2 className="mt-3 text-xl text-foreground-light">
-              <ReactMarkdown>{meta.subtitle}</ReactMarkdown>
-            </h2>
+            <ReactMarkdown className="text-xl text-foreground-light [&>p]:mt-3">
+              {meta.subtitle}
+            </ReactMarkdown>
           )}
           <hr className="not-prose border-t-0 border-b my-8" />
           <MDXProviderGuides>
