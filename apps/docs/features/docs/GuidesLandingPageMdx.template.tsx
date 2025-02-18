@@ -63,10 +63,8 @@ type GuideTemplateProps =
 const GuideTemplate = ({ meta, content, children, editLink, mdxOptions }: GuideTemplateProps) => {
   const hideToc = meta?.hideToc || meta?.hide_table_of_contents
 
-  console.log('meta', meta)
-
   return (
-    <div className={'grid grid-cols-12 relative gap-4'}>
+    <div className={'grid grid-cols-12 relative gap-4 -mt-8'}>
       <div
         className={cn(
           'relative',
@@ -76,21 +74,25 @@ const GuideTemplate = ({ meta, content, children, editLink, mdxOptions }: GuideT
           hideToc ? 'col-span-12' : 'col-span-12 md:col-span-9'
         )}
       >
-        <Breadcrumbs className="mb-2" />
         <article
           // Used to get headings for the table of contents
           id="sb-docs-guide-main-article"
           className="prose max-w-none"
         >
-          <h1 className="mb-0 [&>p]:m-0">
-            <ReactMarkdown>{meta?.title || 'Supabase Docs'}</ReactMarkdown>
-          </h1>
-          {meta?.subtitle && (
-            <h2 className="mt-3 text-xl text-foreground-light">
-              <ReactMarkdown>{meta.subtitle}</ReactMarkdown>
-            </h2>
-          )}
-          <hr className="not-prose border-t-0 border-b my-8" />
+          <div className="flex flex-col gap-2 border border-t-0 rounded-b-lg bg-surface-100">
+            <div className="flex flex-col gap-2 p-4 md:p-6 md:pt-8">
+              <Breadcrumbs className="mb-2" />
+              <h1 className="mb-0 [&>p]:m-0">
+                <ReactMarkdown>{meta?.title || 'Supabase Docs'}</ReactMarkdown>
+              </h1>
+              {meta?.subtitle && (
+                <h2 className="mt-3 text-xl text-foreground-light">
+                  <ReactMarkdown>{meta.subtitle}</ReactMarkdown>
+                </h2>
+              )}
+            </div>
+          </div>
+          {/* <hr className="not-prose border-t-0 border-b my-8" /> */}
           <MDXProviderGuides>
             {content && <MDXRemoteBase source={content} options={mdxOptions} />}
           </MDXProviderGuides>

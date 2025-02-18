@@ -48,7 +48,7 @@ export const GlassPanel = ({
   )
 
   const LogoComponent = ({ logoImage, className }: { logoImage: string; className?: string }) => (
-    <div className="relative box-content p-8 pb-0">
+    <div className="relative box-content p-3 pb-0">
       <div className="relative h-[33px] w-auto max-w-[145px]">
         <Image
           src={logoImage}
@@ -95,10 +95,10 @@ export const GlassPanel = ({
       /> */}
       <div
         className={cn(
-          'px-8 pb-8 relative',
+          'px-6 pb-6 relative',
           'flex flex-col h-full',
-          icon ? 'gap-6' : 'gap-2',
-          !header ? 'pt-8' : ''
+          icon ? 'gap-4' : 'gap-2',
+          !header ? 'pt-6' : ''
         )}
       >
         <div className="flex items-center gap-3">

@@ -3,6 +3,7 @@ import {
   genGuideMeta,
   genGuidesStaticParams,
 } from '~/features/docs/GuidesMdx.utils'
+import { GuideTemplate as GuideTemplateLandingPage } from '~/features/docs/GuidesLandingPageMdx.template'
 import { GuideTemplate } from '~/features/docs/GuidesMdx.template'
 
 export const dynamicParams = false
@@ -13,7 +14,7 @@ const GettingStartedGuidePage = async ({ params }: { params: Params }) => {
   const slug = ['getting-started', ...(params.slug ?? [])]
   const data = await getGuidesMarkdown(slug)
 
-  return <GuideTemplate {...data!} />
+  return slug.length === 1 ? <GuideTemplateLandingPage {...data!} /> : <GuideTemplate {...data!} />
 }
 
 const generateStaticParams = genGuidesStaticParams('getting-started')
