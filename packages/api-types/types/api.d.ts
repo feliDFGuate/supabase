@@ -10955,6 +10955,7 @@ export interface components {
     }
     SecretResponse: {
       name: string
+      updated_at?: string
       value: string
     }
     SelectedAddonResponse: {
