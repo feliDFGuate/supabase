@@ -29,7 +29,7 @@ const mdxOptions: SerializeOptions = {
     remarkPlugins: [
       [remarkMath, { singleDollarTextMath: false }],
       remarkGfm,
-      [remarkCodeHike, codeHikeOptions],
+      // [remarkCodeHike, codeHikeOptions],
     ],
     rehypePlugins: [rehypeKatex as any],
   },
