@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import { usePathname } from 'next/navigation'
 import { memo, useEffect, type PropsWithChildren, type ReactNode } from 'react'
 
-import { cn } from 'ui'
+import { cn, ResizableHandle, ResizablePanel, ResizablePanelGroup } from 'ui'
 
 import DefaultNavigationMenu, {
   MenuId,
@@ -14,6 +14,10 @@ import { type NavMenuSection } from '~/components/Navigation/Navigation.types'
 import TopNavBar from '~/components/Navigation/NavigationMenu/TopNavBar'
 import { DOCS_CONTENT_CONTAINER_ID } from '~/features/ui/helpers.constants'
 import { menuState, useMenuMobileOpen } from '~/hooks/useMenuState'
+import { useSnapshot } from 'valtio'
+import { sidePanelState } from '~/components/SidePanel/SidePanel.utils'
+import { OK } from 'zod'
+import { SidePanel } from '~/components/SidePanel/SidePanel'
 
 const Footer = dynamic(() => import('~/components/Navigation/Footer'))
 
@@ -352,12 +356,42 @@ interface SkeletonProps extends PropsWithChildren {
 }
 
 function TopNavSkeleton({ children }) {
+  const { isOpen, setIsOpen } = useSnapshot(sidePanelState)
+
+  useEffect(() => {
+    const handleShortcut = (event: KeyboardEvent) => {
+      if (event.metaKey && event.key === 'i') {
+        setIsOpen((open) => !open)
+      }
+    }
+
+    window.addEventListener('keydown', handleShortcut)
+    return () => window.removeEventListener('keydown', handleShortcut)
+  }, [setIsOpen])
+
   return (
     <div className="flex flex-col h-full w-full">
       <div className="hidden lg:sticky w-full lg:flex top-0 left-0 right-0 z-50">
         <TopNavBar />
       </div>
-      {children}
+      <ResizablePanelGroup direction="horizontal">
+        <ResizablePanel id="main" order={1}>
+          {children}
+        </ResizablePanel>
+        {isOpen && (
+          <>
+            <ResizableHandle />
+            <ResizablePanel
+              id="side"
+              order={2}
+              className="h-[calc(100vh-var(--header-height))] overflow-hidden"
+              defaultSize={25}
+            >
+              <SidePanel />
+            </ResizablePanel>
+          </>
+        )}
+      </ResizablePanelGroup>
     </div>
   )
 }

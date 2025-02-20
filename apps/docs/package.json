@@ -127,6 +127,7 @@
     "chokidar": "^4.0.3",
     "concurrently": "^9.1.2",
     "config": "workspace:*",
+    "derive-valtio": "^0.2.0",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.10",
     "globby": "^13.2.2",
